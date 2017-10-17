@@ -37,7 +37,7 @@ print("")
 
 print("----------------------------------------------------------------------")
 print("3. 讓我們看一下 MNIST 實際印出會長怎麼樣")
-nsample = 55000
+nsample = 1
 randidx = np.random.randint(mnist.train.images.shape[0], size = nsample)
 for i in range(nsample):
     img = np.reshape(mnist.train.images[randidx[i], :], (28, 28)) # matrix
@@ -62,7 +62,8 @@ b = tf.Variable(tf.zeros([10]))
 y = tf.nn.softmax(tf.matmul(x_data, W) + b)
 
 # Define the loss and optimizer
-loss = tf.reduce_mean(-tf.reduce_sum(y_data * tf.log(y), reduction_indices=[1])) # cross entropy
+loss = -tf.reduce_sum(y_data * tf.log(y), reduction_indices=[1])
+loss = tf.reduce_mean(loss) # cross entropy
 optimizer = tf.train.GradientDescentOptimizer(0.5)
 train = optimizer.minimize(loss)
 
