@@ -52,10 +52,11 @@ print("----------------------------------------------------------------------")
 print("4. 讓我們實作 MNIST Softmax 模型")
 import tensorflow as tf
 
-# Create the model
+# Feed the data
 x_data = tf.placeholder(tf.float32, [None, 784])
 y_data = tf.placeholder(tf.float32, [None, 10])
 
+# Build the graph
 W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))
 y = tf.nn.softmax(tf.matmul(x_data, W) + b)
