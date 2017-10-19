@@ -62,8 +62,7 @@ b = tf.Variable(tf.zeros([10]))
 y = tf.nn.softmax(tf.matmul(x_data, W) + b)
 
 # Define the loss and optimizer
-loss = -tf.reduce_sum(y_data * tf.log(y), reduction_indices=[1])
-loss = tf.reduce_mean(loss) # cross entropy
+loss = tf.reduce_mean(-tf.reduce_sum(y_data * tf.log(y), reduction_indices=[1])) # cross entropy
 optimizer = tf.train.GradientDescentOptimizer(0.5)
 train = optimizer.minimize(loss)
 
@@ -80,8 +79,7 @@ for i in range(1000):
     sess.run(train, feed_dict={x_data: batch_xs, y_data: batch_ys})
 
 # Test trained model
-correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_data, 1))
-correct_prediction = tf.cast(correct_prediction, tf.float32)
+correct_prediction = tf.cast(tf.equal(tf.argmax(y, 1), tf.argmax(y_data, 1)), tf.float32)
 accuracy = tf.reduce_mean(correct_prediction)
 print(sess.run(accuracy, feed_dict = {x_data: mnist.test.images, y_data: mnist.test.labels}))
 print(sess.run(y[0,:], feed_dict = {x_data: mnist.test.images, y_data: mnist.test.labels}))
