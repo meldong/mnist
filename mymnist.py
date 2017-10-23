@@ -96,7 +96,7 @@ sess.close()
 print("")
 
 print("----------------------------------------------------------------------")
-print("4. 讓我們實作 MNIST Softmax 模型")
+print("5. 讓我們實作 MNIST CNN 模型")
 import tensorflow as tf
 
 # Feed the data
